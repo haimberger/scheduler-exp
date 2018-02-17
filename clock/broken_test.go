@@ -57,8 +57,8 @@ func TestBrokenMarshalJSON(t *testing.T) {
 		expected  string
 	}
 	tcs := []testCase{
-		{name: "default", timestamp: "", expected: `"BrokenClock{0001-01-01T00:00:00Z}"`},
-		{name: "typical", timestamp: "2018-02-16T18:21:34Z", expected: `"BrokenClock{2018-02-16T18:21:34Z}"`},
+		{name: "default", timestamp: "", expected: `{"time":"0001-01-01T00:00:00Z"}`},
+		{name: "typical", timestamp: "2018-02-16T18:21:34Z", expected: `{"time":"2018-02-16T18:21:34Z"}`},
 	}
 	for _, tc := range tcs {
 		c, err := MkBrokenClock(timestampLayout, tc.timestamp)
@@ -82,9 +82,11 @@ func TestBrokenUnmarshalJSON(t *testing.T) {
 		err       bool
 	}
 	tcs := []testCase{
-		{name: "default", jsonStr: `"BrokenClock{0001-01-01T00:00:00Z}"`, timestamp: ""},
-		{name: "typical", jsonStr: `"BrokenClock{2018-02-16T18:21:34Z}"`, timestamp: "2018-02-16T18:21:34Z"},
-		{name: "invalid", jsonStr: `"BrokenClock{}"`, timestamp: "", err: true},
+		{name: "empty", jsonStr: `{}`, timestamp: ""},
+		{name: "ignore", jsonStr: `{"foo":"bar"}`, timestamp: ""},
+		{name: "default", jsonStr: `{"time":"0001-01-01T00:00:00Z"}`, timestamp: ""},
+		{name: "typical", jsonStr: `{"time":"2018-02-16T18:21:34Z"}`, timestamp: "2018-02-16T18:21:34Z"},
+		{name: "invalid", jsonStr: `{"time":"02/16/2018 18:21:34"}`, timestamp: "", err: true},
 	}
 	for _, tc := range tcs {
 		expected, err := MkBrokenClock(timestampLayout, tc.timestamp)
@@ -94,10 +96,12 @@ func TestBrokenUnmarshalJSON(t *testing.T) {
 		var c BrokenClock
 		err = json.Unmarshal([]byte(tc.jsonStr), &c)
 		if err == nil && tc.err {
-			t.Fatalf("[%s] expected an error, but didn't get one", tc.name)
+			t.Fatalf("[%s] expected an error, but didn't get one; got %v instead", tc.name, c)
 		} else if err != nil && !tc.err {
 			t.Fatalf("[%s] got error: %v", tc.name, err)
-		} else if !c.Equal(expected) {
+		} else if err != nil {
+			t.Logf("[%s] got expected error: %v", tc.name, err)
+		} else if err == nil && !c.Equal(expected) {
 			t.Fatalf("[%s] expected %v; got %v", tc.name, expected, c)
 		}
 	}

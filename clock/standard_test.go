@@ -21,7 +21,7 @@ func TestStandardNow(t *testing.T) {
 }
 
 func TestStandardMarshalJSON(t *testing.T) {
-	expected := `"StandardClock"`
+	expected := "{}"
 	c := StandardClock{}
 	actual, err := json.Marshal(c)
 	if err != nil {
@@ -32,12 +32,28 @@ func TestStandardMarshalJSON(t *testing.T) {
 }
 
 func TestStandardUnmarshalJSON(t *testing.T) {
-	var c StandardClock
-	if err := json.Unmarshal([]byte(`"StandardClock"`), &c); err != nil {
-		t.Fatal(err)
+	type testCase struct {
+		name    string
+		jsonStr string
+		err     bool
 	}
-	expected := StandardClock{}
-	if !c.Equal(expected) {
-		t.Fatalf("expected %v; got %v", c, expected)
+	tcs := []testCase{
+		{name: "typical", jsonStr: `{}`},
+		{name: "ignore", jsonStr: `{"time":"2018-02-16T18:21:34Z"}`},
+		{name: "invalid", jsonStr: `""`, err: true},
+	}
+	for _, tc := range tcs {
+		var c StandardClock
+		expected := StandardClock{}
+		err := json.Unmarshal([]byte(tc.jsonStr), &c)
+		if err == nil && tc.err {
+			t.Fatalf("[%s] expected an error, but didn't get one; got %v instead", tc.name, c)
+		} else if err != nil && !tc.err {
+			t.Fatalf("[%s] got error: %v", tc.name, err)
+		} else if err != nil {
+			t.Logf("[%s] got expected error: %v", tc.name, err)
+		} else if err == nil && !c.Equal(expected) {
+			t.Fatalf("[%s] expected %v; got %v", tc.name, expected, c)
+		}
 	}
 }
