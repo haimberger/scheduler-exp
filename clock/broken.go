@@ -13,24 +13,23 @@ type BrokenClock struct {
 // MkBrokenClock creates a new broken clock based on a timestamp with the
 // specified layout (e.g. time.RFC3339). If the timestamp is an empty string,
 // the clock's time is set to the zero time (January 1, year 1, 00:00 UTC).
-func MkBrokenClock(layout string, timestamp string) (BrokenClock, error) {
+func MkBrokenClock(layout string, timestamp string) (*BrokenClock, error) {
 	if timestamp == "" {
-		return BrokenClock{}, nil
+		return &BrokenClock{}, nil
 	}
-	var c BrokenClock
 	t, err := time.Parse(layout, timestamp)
 	if err != nil {
-		return c, err
+		return nil, err
 	}
-	return BrokenClock{T: t}, nil
+	return &BrokenClock{T: t}, nil
 }
 
 // Now always returns the same time.
-func (c BrokenClock) Now() time.Time {
+func (c *BrokenClock) Now() time.Time {
 	return c.T
 }
 
 // Equal returns true iff a clock behaves the same as another.
-func (c BrokenClock) Equal(o BrokenClock) bool {
+func (c *BrokenClock) Equal(o *BrokenClock) bool {
 	return c.T.Equal(o.T)
 }

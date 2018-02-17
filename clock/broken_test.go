@@ -39,6 +39,7 @@ func TestBrokenNow(t *testing.T) {
 		{name: "typical", timestamp: "2018-02-16T18:21:34Z", expected: "2018-02-16T18:21:34Z"},
 	}
 	for _, tc := range tcs {
+		var c Clock // make sure that BrokenClock implements Clock
 		c, err := MkBrokenClock(timestampLayout, tc.timestamp)
 		if err != nil {
 			t.Fatalf("[%s] got error: %v", tc.name, err)
