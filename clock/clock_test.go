@@ -7,8 +7,7 @@ import (
 )
 
 func TestStandardNow(t *testing.T) {
-	var c Clock // make sure that StandardClock implements Clock
-	c = &StandardClock{}
+	var c Clock = &StandardClock{} // make sure that StandardClock implements Clock
 	before := time.Now()
 	actual := c.Now()
 	after := time.Now()
