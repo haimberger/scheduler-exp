@@ -9,6 +9,6 @@ type BrokenClock struct {
 }
 
 // Now always returns the same time.
-func (c *BrokenClock) Now() time.Time {
+func (c BrokenClock) Now() time.Time {
 	return c.T
 }

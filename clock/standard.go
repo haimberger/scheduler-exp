@@ -6,6 +6,6 @@ import "time"
 type StandardClock struct{}
 
 // Now returns the current time.
-func (*StandardClock) Now() time.Time {
+func (StandardClock) Now() time.Time {
 	return time.Now()
 }

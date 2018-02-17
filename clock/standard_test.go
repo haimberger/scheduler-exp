@@ -6,7 +6,8 @@ import (
 )
 
 func TestStandardClock(t *testing.T) {
-	c := StandardClock{}
+	var c Clock
+	c = StandardClock{}
 	before := time.Now()
 	actual := c.Now()
 	after := time.Now()
