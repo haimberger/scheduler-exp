@@ -10,10 +10,10 @@ type BrokenClock struct {
 	T time.Time `json:"time"`
 }
 
-// MkBrokenClock creates a new broken clock based on a timestamp with the
+// TestClock creates a new broken clock based on a timestamp with the
 // specified layout (e.g. time.RFC3339). If the timestamp is an empty string,
 // the clock's time is set to the zero time (January 1, year 1, 00:00 UTC).
-func MkBrokenClock(layout string, timestamp string) (*BrokenClock, error) {
+func TestClock(layout string, timestamp string) (*BrokenClock, error) {
 	if timestamp == "" {
 		return &BrokenClock{}, nil
 	}
