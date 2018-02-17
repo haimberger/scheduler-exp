@@ -11,6 +11,10 @@ The following command runs all tests in all packages:
 
     make test
 
+Some tests use `.golden` files to keep track of expected results (see [task/task_test.go](task/task_test.go) and [task/testdata/](task/testdata/) for an example). In those cases, if the files become outdated and you're certain that the actual values produced by the tests are correct, you can update the `.golden` files as follows:
+
+    make test-update
+
 If you'd like to see the test coverage information in a more visually appealing form, you can try the following instead:
 
     make test-coverage
@@ -21,3 +25,4 @@ If you only want to run tests for one package, there are commands for that as we
 
     make clock.t  # run tests in clock package
     make clock.cv # show coverage information for clock package
+    make task.u   # run tests in task package, updating golden files where they differ from reality
