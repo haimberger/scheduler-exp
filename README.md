@@ -31,5 +31,5 @@ It will save the coverage information to a file, then open a browser window show
 
 If you only want to run tests for one package, there are commands for that as well:
 
-    make clock.t  # run tests in clock package
-    make clock.cv # show coverage information for clock package
+    make clock.test # run tests in clock package
+    make clock.cov  # show coverage information for clock package

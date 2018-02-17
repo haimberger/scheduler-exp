@@ -9,12 +9,12 @@ lint: clock.lint
 	@command -v gometalinter || (go get -u github.com/alecthomas/gometalinter && gometalinter --install)
 	@gometalinter ./$*
 
-test: clock.t
+test: clock.test
 
-%.t:
+%.test:
 	@go test -v -race --cover ./$* && echo ""
 
-test-coverage: clock.cv
+test-coverage: clock.cov
 
-%.cv:
+%.cov:
 	@go test -coverprofile=$*/coverage.out ./$* && go tool cover -html=$*/coverage.out
