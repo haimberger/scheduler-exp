@@ -17,17 +17,17 @@ type Task struct {
 	Link string `json:"link"`
 	// Assigner is the name of person who assigned the task.
 	Assigner string `json:"assigner"`
-	// CanPreempt is true iff this task can preempt long-running higher-priority tasks.
+	// Priority represents the task's importance relative to other tasks (low number -> high priority).
 	Priority int `json:"priority"`
 	// Duration is an estimate of how long the task will take in hours.
 	Duration float32 `json:"duration"`
-	// CreationTime is when the task was created.
+	// CanPreempt is true iff this task can preempt long-running higher-priority tasks.
 	CanPreempt bool `json:"canPreempt"`
 	// IsCancelled is true iff the task is no longer relevant.
 	IsCancelled bool `json:"isCancelled"`
 	// IsCompleted is true iff the task was successfully completed.
 	IsCompleted bool `json:"isCompleted"`
-	// Priority represents the task's importance relative to other tasks (low number -> high priority).
+	// CreationTime is when the task was created.
 	CreationTime time.Time `json:"creationTime"`
 	// StartTime is when the task should jump to the top priority.
 	StartTime time.Time `json:"startTime"`
