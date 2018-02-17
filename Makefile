@@ -3,17 +3,23 @@
 default:
 	@echo "Usage: make [command]"
 
-test: clock.t task.t
+lint: clock.lint task.lint
 
-%.t:
+%.lint:
+	@command -v gometalinter || (go get -u github.com/alecthomas/gometalinter && gometalinter --install)
+	@gometalinter ./$*
+
+test: clock.test task.test
+
+%.test:
 	@go test -v -race --cover ./$* && echo ""
 
-test-coverage: clock.cv task.cv
+test-coverage: clock.cov task.cov
 
-%.cv:
+%.cov:
 	@go test -coverprofile=$*/coverage.out ./$* && go tool cover -html=$*/coverage.out
 
-test-update: task.u
+test-update: task.update
 
-%.u:
+%.update:
 	@go test -v --cover ./$* -update && echo ""

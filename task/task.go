@@ -52,7 +52,7 @@ func MkTask(t Task) (Task, error) {
 	// determine clock that will be used to keep time
 	var c clock.Clock
 	if t.Clock == nil {
-		c = clock.StandardClock{}
+		c = &clock.StandardClock{}
 	} else {
 		c = t.Clock
 	}

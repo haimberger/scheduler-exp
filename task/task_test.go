@@ -37,7 +37,7 @@ func TestMkTask(t *testing.T) {
 	}
 
 	// use broken clock so that tasks created at different times can be compared
-	tc.Clock = clock.BrokenClock{}
+	tc.Clock = &clock.BrokenClock{}
 	actualTask, err = MkTask(tc)
 	if err != nil {
 		t.Fatal(err)

@@ -7,7 +7,7 @@ import (
 )
 
 func TestStandardNow(t *testing.T) {
-	c := StandardClock{}
+	var c Clock = &StandardClock{} // make sure that StandardClock implements Clock
 	before := time.Now()
 	actual := c.Now()
 	after := time.Now()
@@ -52,7 +52,7 @@ func TestStandardUnmarshalJSON(t *testing.T) {
 			t.Fatalf("[%s] got error: %v", tc.name, err)
 		} else if err != nil {
 			t.Logf("[%s] got expected error: %v", tc.name, err)
-		} else if err == nil && !c.Equal(expected) {
+		} else if err == nil && !c.Equal(&expected) {
 			t.Fatalf("[%s] expected %v; got %v", tc.name, expected, c)
 		}
 	}

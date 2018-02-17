@@ -5,6 +5,18 @@ This is a web application intended to help improve productivity by promoting a p
 
 More details can be found [here](https://docs.google.com/document/d/19fPz48mgMIbgPmBH03mRc4Ii2RGQ8nqGLT9ySna3WvE).
 
+## Development
+
+Before committing any changes, make sure to run
+
+    make lint
+
+It will concurrently run a bunch of linters including [go vet](https://golang.org/cmd/vet/) and [megacheck](https://github.com/dominikh/go-tools/tree/master/cmd/megacheck).
+
+You can also run linters for individual packages:
+
+    make clock.lint // run linters in clock package
+
 ## Testing
 
 The following command runs all tests in all packages:
@@ -23,6 +35,6 @@ It will save the coverage information to a file, then open a browser window show
 
 If you only want to run tests for one package, there are commands for that as well:
 
-    make clock.t  # run tests in clock package
-    make clock.cv # show coverage information for clock package
-    make task.u   # run tests in task package, updating golden files where they differ from reality
+    make clock.test  # run tests in clock package
+    make clock.cov   # show coverage information for clock package
+    make task.update # run tests in task package, updating golden files where they differ from reality
