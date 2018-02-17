@@ -3,7 +3,10 @@ package clock
 import (
 	"encoding/json"
 	"testing"
+	"time"
 )
+
+const timestampLayout = time.RFC3339
 
 func TestMkBrokenClock(t *testing.T) {
 	type testCase struct {

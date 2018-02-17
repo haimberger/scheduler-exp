@@ -1,8 +1,6 @@
 package clock
 
-import (
-	"time"
-)
+import "time"
 
 // BrokenClock has seen better days; in its mind, time is standing still.
 type BrokenClock struct {
