@@ -72,31 +72,28 @@ func MkTask(t Task) (Task, error) {
 // Update overwrites a task's fields with the specified values.
 func (t *Task) Update(src map[string]string) error {
 	dst := reflect.ValueOf(t).Elem()
-	for fieldName, value := range src {
-		f := dst.FieldByName(fieldName)
+	for k, v := range src {
+		f := dst.FieldByName(k)
 		if !f.CanSet() {
-			return fmt.Errorf("can't set field %s", fieldName)
+			return fmt.Errorf("can't set field %s", k)
 		}
-		switch f.Type().Name() {
-		case "string":
-			f.SetString(value)
-		case "int":
-			i, err := strconv.Atoi(value)
+		switch f.Type().Kind() {
+		case reflect.String:
+			f.SetString(v)
+		case reflect.Int:
+			i, err := strconv.Atoi(v)
 			if err != nil {
-				return fmt.Errorf(`invalid value "%s" for %s; expected an integer`, value, fieldName)
+				return fmt.Errorf(`invalid value "%s" for %s; expected an integer`, v, k)
 			}
 			f.SetInt(int64(i))
-		case "bool":
-			switch value {
-			case "true":
-				f.SetBool(true)
-			case "false":
-				f.SetBool(false)
-			default:
-				return fmt.Errorf(`invalid value "%s" for %s; expected "true" or "false"`, value, fieldName)
+		case reflect.Bool:
+			b, err := strconv.ParseBool(v)
+			if err != nil {
+				return fmt.Errorf(`invalid value "%s" for %s; expected a boolean value`, v, k)
 			}
+			f.SetBool(b)
 		default:
-			return fmt.Errorf("unsupported type %s", f.Type())
+			return fmt.Errorf("unsupported Kind %v for field %s", f.Kind(), k)
 		}
 	}
 	return nil
