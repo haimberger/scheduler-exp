@@ -23,7 +23,7 @@ The following command runs all tests in all packages:
 
     make test
 
-Some tests use `.golden` files to keep track of expected results (see [task/task_test.go](task/task_test.go) and [task/testdata/](task/testdata/), for example). In those cases, if the files become outdated and you're certain that the actual values produced by the tests are correct, you can update the `.golden` files as follows:
+Some tests use "golden" files to keep track of expected results (see [task/task_test.go](task/task_test.go) and [task/testdata/](task/testdata/), for example). In those cases, if the files become outdated and you're certain that the actual values produced by the tests are correct, you can update the golden files as follows:
 
     make test-update
 
