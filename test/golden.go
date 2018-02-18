@@ -37,10 +37,11 @@ func LoadInput(inputFile string, i interface{}) error {
 // be returned.
 func CompareResults(actual interface{}, goldenFile string) error {
 	// convert value to JSON string
-	jsonStr, err := json.Marshal(actual)
+	jsonStr, err := json.MarshalIndent(actual, "", "  ")
 	if err != nil {
 		return err
 	}
+	jsonStr = []byte(fmt.Sprintf("%s\n", jsonStr))
 
 	// construct path to golden file
 	goldenPath := path.Join("testdata", fmt.Sprintf("%s.json", goldenFile))
