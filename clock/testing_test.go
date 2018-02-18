@@ -3,10 +3,7 @@ package clock
 import (
 	"encoding/json"
 	"testing"
-	"time"
 )
-
-const timestampLayout = time.RFC3339
 
 func TestMkBrokenClock(t *testing.T) {
 	type testCase struct {
@@ -19,7 +16,7 @@ func TestMkBrokenClock(t *testing.T) {
 		{name: "no timestamp", layout: "", timestamp: "", err: false},
 		{name: "no layout", layout: "", timestamp: "2018-02-16T18:21:34Z", err: true},
 		{name: "mismatched layout", layout: "Mon Jan 2 15:04:05 MST 2006", timestamp: "2018-02-16T18:21:34Z", err: true},
-		{name: "matching layout", layout: timestampLayout, timestamp: "2018-02-16T18:21:34Z", err: false},
+		{name: "matching layout", layout: TimestampLayout, timestamp: "2018-02-16T18:21:34Z", err: false},
 	}
 	for _, tc := range tcs {
 		_, err := TestClock(tc.layout, tc.timestamp)
@@ -43,11 +40,11 @@ func TestBrokenNow(t *testing.T) {
 	}
 	for _, tc := range tcs {
 		var c Clock // make sure that BrokenClock implements Clock
-		c, err := TestClock(timestampLayout, tc.timestamp)
+		c, err := TestClock(TimestampLayout, tc.timestamp)
 		if err != nil {
 			t.Fatalf("[%s] got error: %v", tc.name, err)
 		}
-		actual := c.Now().Format(timestampLayout)
+		actual := c.Now().Format(TimestampLayout)
 		if actual != tc.expected {
 			t.Fatalf("[%s] expected %v; got %v", tc.name, tc.expected, actual)
 		}
@@ -65,7 +62,7 @@ func TestBrokenMarshalJSON(t *testing.T) {
 		{name: "typical", timestamp: "2018-02-16T18:21:34Z", expected: `{"time":"2018-02-16T18:21:34Z"}`},
 	}
 	for _, tc := range tcs {
-		c, err := TestClock(timestampLayout, tc.timestamp)
+		c, err := TestClock(TimestampLayout, tc.timestamp)
 		if err != nil {
 			t.Fatalf("[%s] got error: %v", tc.name, err)
 		}
@@ -93,7 +90,7 @@ func TestBrokenUnmarshalJSON(t *testing.T) {
 		{name: "invalid", jsonStr: `{"time":"02/16/2018 18:21:34"}`, timestamp: "", err: true},
 	}
 	for _, tc := range tcs {
-		expected, err := TestClock(timestampLayout, tc.timestamp)
+		expected, err := TestClock(TimestampLayout, tc.timestamp)
 		if err != nil {
 			t.Fatalf("[%s] got error: %v", tc.name, err)
 		}
