@@ -11,7 +11,7 @@ import (
 func TestMkTask(t *testing.T) {
 	// load task from file
 	var task Task
-	if err := test.LoadInput("testdata/basic.input", &task); err != nil {
+	if err := test.LoadInput("basic.input", &task); err != nil {
 		t.Fatal(err)
 	}
 
@@ -36,7 +36,7 @@ func TestMkTask(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = test.CompareResults(&actual, "testdata/MkTask.golden"); err != nil {
+	if err = test.CompareResults(&actual, "basic.golden"); err != nil {
 		t.Fatal(err)
 	}
 }

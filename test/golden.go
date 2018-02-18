@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io/ioutil"
+	"path"
 )
 
 var update = flag.Bool("update", false, "update .golden files")
@@ -13,7 +14,7 @@ var update = flag.Bool("update", false, "update .golden files")
 // LoadInput loads input data from a file.
 func LoadInput(inputFile string, i interface{}) error {
 	// read input file
-	input, err := ioutil.ReadFile(inputFile)
+	input, err := ioutil.ReadFile(path.Join("testdata", inputFile))
 	if err != nil {
 		return err
 	}
@@ -39,7 +40,7 @@ func CompareResults(actual interface{}, goldenFile string) error {
 	}
 
 	// read golden file, which contains the expected output
-	expected, err := ioutil.ReadFile(goldenFile)
+	expected, err := ioutil.ReadFile(path.Join("testdata", goldenFile))
 	if err != nil {
 		return err
 	}
@@ -52,7 +53,7 @@ func CompareResults(actual interface{}, goldenFile string) error {
 				return err
 			}
 		} else {
-			return fmt.Errorf("expected %s, got %s", expected, actual)
+			return fmt.Errorf("expected %s, got %s", expected, jsonStr)
 		}
 	}
 	return nil

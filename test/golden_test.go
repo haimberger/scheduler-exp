@@ -10,9 +10,9 @@ func TestLoadData(t *testing.T) {
 		expectErr  bool
 	}
 	tcs := []testCase{
-		{name: "basic", inputFile: "testdata/basic.input", goldenFile: "testdata/LoadInput.golden"},
-		{name: "misformatted", inputFile: "testdata/misformatted.input", expectErr: true},
-		{name: "nonexistent", inputFile: "testdata/nonexistent.input", expectErr: true},
+		{name: "basic", inputFile: "basic.input", goldenFile: "basic.golden"},
+		{name: "misformatted", inputFile: "misformatted.input", expectErr: true},
+		{name: "nonexistent", inputFile: "nonexistent.input", expectErr: true},
 	}
 	for _, tc := range tcs {
 		var v map[string]string
