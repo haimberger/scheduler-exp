@@ -49,7 +49,7 @@ func CompareResults(actual interface{}, goldenFile string) error {
 	if !bytes.Equal(jsonStr, expected) {
 		if *update {
 			// overwrite the golden file with the actual result
-			if err = ioutil.WriteFile(goldenFile, jsonStr, 0666); err != nil {
+			if err = ioutil.WriteFile(path.Join("testdata", goldenFile), jsonStr, 0666); err != nil {
 				return err
 			}
 		} else {
