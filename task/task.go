@@ -1,6 +1,7 @@
 package task
 
 import (
+	"errors"
 	"time"
 
 	"github.com/haimberger/scheduler/clock"
@@ -66,6 +67,37 @@ func MkTask(cf Config, c clock.Clock) (Task, error) {
 		},
 		CreationTime: c.Now(),
 	}, nil
+}
+
+// Start marks a task as being actively worked on.
+func (t *Task) Start(c clock.Clock) error {
+	// check if it even makes sense for the task
+	if t.Config.IsCancelled {
+		return errors.New("can't start cancelled task")
+	}
+	if t.Config.IsCompleted {
+		return errors.New("can't start completed task")
+	}
+
+	// check if the task is already marked as being in progress
+	if l := len(t.ActiveIntervals); l == 0 || !t.ActiveIntervals[l-1].End.IsZero() {
+		// if not, record the beginning of the current interval of work
+		t.ActiveIntervals = append(t.ActiveIntervals, Interval{
+			Begin: c.Now(),
+		})
+	}
+
+	return nil
+}
+
+// Stop marks a task as no longer being actively worked on.
+func (t *Task) Stop(c clock.Clock) error {
+	// check if the task is currently marked as being in progress
+	if l := len(t.ActiveIntervals); l > 0 && t.ActiveIntervals[l-1].End.IsZero() {
+		// if so, record the end of the last interval of work
+		t.ActiveIntervals[l-1].End = c.Now()
+	}
+	return nil
 }
 
 // Update overwrites a task's fields with the specified values.

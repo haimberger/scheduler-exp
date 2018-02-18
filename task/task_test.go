@@ -1,6 +1,7 @@
 package task
 
 import (
+	"errors"
 	"testing"
 	"time"
 
@@ -44,6 +45,87 @@ func TestMkTask_broken(t *testing.T) {
 	}
 }
 
+func TestStart(t *testing.T) {
+	type testCase struct {
+		name      string
+		in        string
+		out       string
+		expectErr bool
+	}
+	tcs := []testCase{
+		{name: "new", in: "new", out: "started"},
+		{name: "wip", in: "wip", out: "wip"},
+		{name: "paused", in: "paused", out: "restarted"},
+		{name: "cancelled", in: "cancelled", expectErr: true},
+		{name: "completed", in: "completed", expectErr: true},
+	}
+
+	for _, tc := range tcs {
+		if err := testStart(tc.in, tc.out, tc.expectErr); err != nil {
+			t.Errorf("[%s] %v", tc.name, err)
+		}
+	}
+}
+
+func testStart(in, out string, expectErr bool) error {
+	var task Task
+	if err := test.LoadInput(in, &task); err != nil {
+		return err
+	}
+	c, err := clock.TestClock(clock.TimestampLayout, "2018-02-16T18:21:34Z")
+	if err != nil {
+		return err
+	}
+	err = task.Start(c)
+	if expectErr {
+		if err == nil {
+			return errors.New("expected an error, but didn't get one")
+		}
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	return test.CompareResults(task, out)
+}
+
+func TestStop(t *testing.T) {
+	type testCase struct {
+		name string
+		in   string
+		out  string
+	}
+	tcs := []testCase{
+		{name: "new", in: "new", out: "new"},
+		{name: "wip", in: "wip", out: "paused"},
+		{name: "paused", in: "paused", out: "paused"},
+		{name: "cancelled", in: "cancelled", out: "cancelled"},
+		{name: "completed", in: "completed", out: "completed"},
+	}
+
+	for _, tc := range tcs {
+		if err := testStop(tc.in, tc.out); err != nil {
+			t.Errorf("[%s] %v", tc.name, err)
+		}
+	}
+}
+
+func testStop(in, out string) error {
+	var task Task
+	if err := test.LoadInput(in, &task); err != nil {
+		return err
+	}
+	c, err := clock.TestClock(clock.TimestampLayout, "2018-02-16T18:21:34Z")
+	if err != nil {
+		return err
+	}
+	err = task.Stop(c)
+	if err != nil {
+		return err
+	}
+	return test.CompareResults(task, out)
+}
+
 func TestUpdate(t *testing.T) {
 	type testCase struct {
 		name string
@@ -76,5 +158,8 @@ func testUpdate(in, out string) error {
 	if err := task.Update(changes); err != nil {
 		return err
 	}
-	return test.CompareResults(task, out)
+	if err := test.CompareResults(task, out); err != nil {
+		return err
+	}
+	return nil
 }

@@ -1,0 +1,24 @@
+{
+  "config": {
+    "title": "Implement feature X",
+    "link": "http://example.com/trello/feature-x",
+    "assigner": "Alice",
+    "priority": 0,
+    "duration": 16,
+    "canPreempt": false,
+    "isCancelled": false,
+    "isCompleted": true,
+    "startTime": "0001-01-01T00:00:00Z"
+  },
+  "creationTime": "0001-01-01T00:00:00Z",
+  "activeIntervals": [
+    {
+      "begin": "2018-02-16T15:00:00Z",
+      "end": "2018-02-16T16:30:00Z"
+    },
+    {
+      "begin": "2018-02-16T18:00:00Z",
+      "end": "2018-02-16T18:15:00Z"
+    }
+  ]
+}
