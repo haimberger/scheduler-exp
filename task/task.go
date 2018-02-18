@@ -1,9 +1,6 @@
 package task
 
 import (
-	"fmt"
-	"reflect"
-	"strconv"
 	"time"
 
 	"github.com/haimberger/scheduler/clock"
@@ -75,31 +72,8 @@ func MkTask(cf Config, c clock.Clock) (Task, error) {
 }
 
 // Update overwrites a task's fields with the specified values.
-func (t *Task) Update(src map[string]string) error {
-	dst := reflect.ValueOf(t).Elem()
-	for k, v := range src {
-		f := dst.FieldByName(k)
-		if !f.CanSet() {
-			return fmt.Errorf("can't set field %s", k)
-		}
-		switch f.Type().Kind() {
-		case reflect.String:
-			f.SetString(v)
-		case reflect.Int:
-			i, err := strconv.Atoi(v)
-			if err != nil {
-				return fmt.Errorf(`invalid value "%s" for %s; expected an integer`, v, k)
-			}
-			f.SetInt(int64(i))
-		case reflect.Bool:
-			b, err := strconv.ParseBool(v)
-			if err != nil {
-				return fmt.Errorf(`invalid value "%s" for %s; expected a boolean value`, v, k)
-			}
-			f.SetBool(b)
-		default:
-			return fmt.Errorf("unsupported Kind %v for field %s", f.Kind(), k)
-		}
-	}
+func (t *Task) Update(cf Config) error {
+	// TODO: check values (e.g. is title non-empty? is duration greater than zero?)
+	t.Config = cf
 	return nil
 }

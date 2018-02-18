@@ -39,3 +39,42 @@ func TestMkTask(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestUpdate(t *testing.T) {
+	type testCase struct {
+		name       string
+		inputFile  string
+		goldenFile string
+	}
+	tcs := []testCase{
+		{name: "basic", inputFile: "changes.input", goldenFile: "updated.golden"},
+	}
+
+	for _, tc := range tcs {
+		// load task config from file
+		var cf Config
+		if err := test.LoadInput("basic.input", &cf); err != nil {
+			t.Fatal(err)
+		}
+		task, err := MkTask(cf, &clock.BrokenClock{})
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		// load changes from file
+		var changes Config
+		if err := test.LoadInput(tc.inputFile, &changes); err != nil {
+			t.Errorf("[%s] got error: %v", tc.name, err)
+			return
+		}
+
+		if err := task.Update(changes); err != nil {
+			t.Errorf("[%s] got error: %v", tc.name, err)
+			return
+		}
+
+		if err := test.CompareResults(task, tc.goldenFile); err != nil {
+			t.Errorf("[%s] got error: %v", tc.name, err)
+		}
+	}
+}
