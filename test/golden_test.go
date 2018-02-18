@@ -1,8 +1,11 @@
 package test
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
-func TestLoadData(t *testing.T) {
+func TestLoadInput(t *testing.T) {
 	type testCase struct {
 		name      string
 		in        string
@@ -15,16 +18,23 @@ func TestLoadData(t *testing.T) {
 		{name: "nonexistent", in: "nonexistent", expectErr: true},
 	}
 	for _, tc := range tcs {
-		var v map[string]string
-		err := LoadInput(tc.in, &v)
-		if tc.expectErr {
-			if err == nil {
-				t.Errorf("[%s] expected an error, but didn't get one; got %v instead", tc.name, v)
-			}
-		} else if err != nil {
-			t.Errorf("[%s] got error: %v", tc.name, err)
-		} else if err = CompareResults(v, tc.out); err != nil {
-			t.Errorf("[%s] got error: %v", tc.name, err)
+		if err := testLoadInput(tc.in, tc.out, tc.expectErr); err != nil {
+			t.Errorf("[%s] %v", tc.name, err)
 		}
 	}
+}
+
+func testLoadInput(in, out string, expectErr bool) error {
+	var v map[string]string
+	err := LoadInput(in, &v)
+	if expectErr {
+		if err == nil {
+			return fmt.Errorf("expected an error, but didn't get one; got %v instead", v)
+		}
+		return nil
+	}
+	if err != nil {
+		return err
+	}
+	return CompareResults(v, out)
 }
