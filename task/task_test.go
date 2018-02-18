@@ -11,7 +11,7 @@ import (
 func TestMkTask(t *testing.T) {
 	// load task config from file
 	var cf Config
-	if err := test.LoadInput("basic.input", &cf); err != nil {
+	if err := test.LoadInput("config", &cf); err != nil {
 		t.Fatal(err)
 	}
 
@@ -35,25 +35,25 @@ func TestMkTask(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if err = test.CompareResults(&task, "basic.golden"); err != nil {
+	if err = test.CompareResults(&task, "new"); err != nil {
 		t.Fatal(err)
 	}
 }
 
 func TestUpdate(t *testing.T) {
 	type testCase struct {
-		name       string
-		inputFile  string
-		goldenFile string
+		name string
+		in   string
+		out  string
 	}
 	tcs := []testCase{
-		{name: "basic", inputFile: "changes.input", goldenFile: "updated.golden"},
+		{name: "basic", in: "changes", out: "updated"},
 	}
 
 	for _, tc := range tcs {
 		// load task config from file
 		var cf Config
-		if err := test.LoadInput("basic.input", &cf); err != nil {
+		if err := test.LoadInput("config", &cf); err != nil {
 			t.Fatal(err)
 		}
 		task, err := MkTask(cf, &clock.BrokenClock{})
@@ -63,7 +63,7 @@ func TestUpdate(t *testing.T) {
 
 		// load changes from file
 		var changes Config
-		if err := test.LoadInput(tc.inputFile, &changes); err != nil {
+		if err := test.LoadInput(tc.in, &changes); err != nil {
 			t.Errorf("[%s] got error: %v", tc.name, err)
 			return
 		}
@@ -73,7 +73,7 @@ func TestUpdate(t *testing.T) {
 			return
 		}
 
-		if err := test.CompareResults(task, tc.goldenFile); err != nil {
+		if err := test.CompareResults(task, tc.out); err != nil {
 			t.Errorf("[%s] got error: %v", tc.name, err)
 		}
 	}

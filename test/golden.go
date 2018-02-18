@@ -13,8 +13,11 @@ var update = flag.Bool("update", false, "update .golden files")
 
 // LoadInput loads input data from a file.
 func LoadInput(inputFile string, i interface{}) error {
+	// construct path to input file
+	inputPath := path.Join("testdata", fmt.Sprintf("%s.json", inputFile))
+
 	// read input file
-	input, err := ioutil.ReadFile(path.Join("testdata", inputFile))
+	input, err := ioutil.ReadFile(inputPath)
 	if err != nil {
 		return err
 	}
@@ -39,8 +42,11 @@ func CompareResults(actual interface{}, goldenFile string) error {
 		return err
 	}
 
+	// construct path to golden file
+	goldenPath := path.Join("testdata", fmt.Sprintf("%s.json", goldenFile))
+
 	// read golden file, which contains the expected output
-	expected, err := ioutil.ReadFile(path.Join("testdata", goldenFile))
+	expected, err := ioutil.ReadFile(goldenPath)
 	if err != nil {
 		return err
 	}
@@ -49,7 +55,7 @@ func CompareResults(actual interface{}, goldenFile string) error {
 	if !bytes.Equal(jsonStr, expected) {
 		if *update {
 			// overwrite the golden file with the actual result
-			if err = ioutil.WriteFile(path.Join("testdata", goldenFile), jsonStr, 0666); err != nil {
+			if err = ioutil.WriteFile(goldenPath, jsonStr, 0666); err != nil {
 				return err
 			}
 		} else {
