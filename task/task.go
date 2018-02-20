@@ -8,6 +8,10 @@ import (
 	"github.com/haimberger/scheduler/clock"
 )
 
+// TODO: don't export everything?
+// TODO: will RWMutex actually be effective the way things are now?
+// TODO: validate config, e.g. is title non-empty? is duration greater than zero?
+
 // Task contains information about something that needs to be done.
 type Task struct {
 	sync.RWMutex
@@ -51,8 +55,6 @@ type Interval struct {
 
 // MkTask creates a new task based on the specified one.
 func MkTask(cf Config, c clock.Clock) (Task, error) {
-	// TODO: check values (e.g. is title non-empty? is duration greater than zero?)
-
 	// use standard clock by default
 	if c == nil {
 		c = &clock.StandardClock{}
