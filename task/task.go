@@ -99,11 +99,3 @@ func (t *Task) Stop(c clock.Clock) error {
 	}
 	return nil
 }
-
-// Update overwrites a task's fields with the specified values.
-func (t *Task) Update(cf Config) error {
-	// TODO: check values (e.g. is title non-empty? is duration greater than zero?)
-	// TODO: if isCancelled or isCompleted is set, update active intervals accordingly
-	t.Config = cf
-	return nil
-}
