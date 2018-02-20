@@ -2,6 +2,7 @@ package task
 
 import (
 	"errors"
+	"sync"
 	"time"
 
 	"github.com/haimberger/scheduler/clock"
@@ -9,6 +10,7 @@ import (
 
 // Task contains information about something that needs to be done.
 type Task struct {
+	sync.RWMutex
 	// Config contains configurable properties of the task.
 	Config Config `json:"config"`
 	// CreationTime is when the task was created.
@@ -71,6 +73,9 @@ func MkTask(cf Config, c clock.Clock) (Task, error) {
 
 // Start marks a task as being actively worked on.
 func (t *Task) Start(c clock.Clock) error {
+	t.Lock()
+	defer t.Unlock()
+
 	// check if it even makes sense for the task
 	if t.Config.IsCancelled {
 		return errors.New("can't start cancelled task")
@@ -92,10 +97,14 @@ func (t *Task) Start(c clock.Clock) error {
 
 // Stop marks a task as no longer being actively worked on.
 func (t *Task) Stop(c clock.Clock) error {
+	t.Lock()
+	defer t.Unlock()
+
 	// check if the task is currently marked as being in progress
 	if l := len(t.ActiveIntervals); l > 0 && t.ActiveIntervals[l-1].End.IsZero() {
 		// if so, record the end of the last interval of work
 		t.ActiveIntervals[l-1].End = c.Now()
 	}
+
 	return nil
 }
