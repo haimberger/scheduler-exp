@@ -86,7 +86,7 @@ func testStart(in, out string, expectErr bool) error {
 	if err != nil {
 		return err
 	}
-	return test.CompareResults(task, out)
+	return test.CompareResults(&task, out)
 }
 
 func TestStop(t *testing.T) {
@@ -123,5 +123,5 @@ func testStop(in, out string) error {
 	if err != nil {
 		return err
 	}
-	return test.CompareResults(task, out)
+	return test.CompareResults(&task, out)
 }

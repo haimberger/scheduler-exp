@@ -36,5 +36,5 @@ func testLoadInput(in, out string, expectErr bool) error {
 	if err != nil {
 		return err
 	}
-	return CompareResults(v, out)
+	return CompareResults(&v, out)
 }
