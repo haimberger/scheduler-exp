@@ -3,39 +3,47 @@
 
 <head>
   <title>Scheduler</title>
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 
 <body>
-  <div id="tasks">
-    <!-- Tasks will be inserted here dynamically. -->
-    <div class="task task-wip">
-      <div class="task-front">
-        <p>Lorem ipsum dolor sit amet.</p>
-        <img src="icons/star.svg">
+  <div id="container">
+    <div id="tasks">
+      <!-- Tasks will be inserted here dynamically. -->
+      <!-- FIXME: replace tables with divs -->
+      <div class="task task-wip">
+        <table class="task-title">
+          <tr>
+            <td class="text">Lorem ipsum dolor sit amet.</td>
+            <td class="image"><img src="icons/star.svg"></td>
+          </tr>
+        </table>
+        <div class="task-menu">
+          <button class="button-done"><img src="icons/check.svg"></button>
+          <button class="button-edit"><img src="icons/pencil.svg"></button>
+          <button class="button-pause"><img src="icons/arrow-right.svg"></button>
+          <button class="button-cancel"><img src="icons/x.svg"></button>
+        </div>
       </div>
-      <div class="task-back">
-        <button class="button-done"><img src="icons/check.svg"></button>
-        <button class="button-edit"><img src="icons/pencil.svg"></button>
-        <button class="button-pause"><img src="icons/arrow-right.svg"></button>
-        <button class="button-cancel"><img src="icons/x.svg"></button>
+      <div class="task task-done">
+        <table class="task-title">
+          <tr>
+            <td class="text">Suspendisse lorem mi, pharetra non nibh nec, hendrerit tincidunt diam.</td>
+            <td class="image"><img src="icons/check.svg"></td>
+          </tr>
+        </table>
+        <div class="task-menu">
+          <button class="button-done"><img src="icons/check.svg"></button>
+          <button class="button-edit"><img src="icons/pencil.svg"></button>
+          <button class="button-pause"><img src="icons/arrow-right.svg"></button>
+          <button class="button-cancel"><img src="icons/x.svg"></button>
+        </div>
       </div>
     </div>
-    <div class="task task-done">
-      <div class="task-front">
-        <p>Suspendisse lorem mi, pharetra non nibh nec, hendrerit tincidunt diam.</p>
-        <img src="icons/check.svg">
-      </div>
-      <div class="task-back">
-        <button class="button-done"><img src="icons/check.svg"></button>
-        <button class="button-edit"><img src="icons/pencil.svg"></button>
-        <button class="button-pause"><img src="icons/arrow-right.svg"></button>
-        <button class="button-cancel"><img src="icons/x.svg"></button>
-      </div>
-    </div>
-  </div>
 
-  <div id="pending">
-    <a href="pending.html">Show pending tasks...</a>
+    <div id="pending">
+      <a href="pending.html">Show pending tasks...</a>
+    </div>
   </div>
 </body>
 

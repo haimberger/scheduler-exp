@@ -1,0 +1,59 @@
+#container {
+  width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.task {
+  margin: 0 0 10px 0;
+}
+
+.task-title {
+  width: 100%;
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+.task-title img {
+  width: 32px;
+}
+
+.task-title .text {
+  text-align: left;
+}
+
+.task-title .image {
+  text-align: right;
+}
+
+.task-menu {
+  padding: 5px;
+  background-color: lightgrey;
+}
+
+.task-menu button {
+  border-color: black;
+  border-radius: 5px;
+  border-style: solid;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.task-menu img {
+  display: inline-block;
+  width: 24px;
+}
+
+#new {
+  margin: 0 0 10px 0;
+  padding: 5px;
+  border-style: dashed;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+#new img {
+  width: 32px;
+}
