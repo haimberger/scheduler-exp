@@ -1,0 +1,46 @@
+#title {
+  padding: 5px;
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgb(192,192,192);
+}
+
+input[type="text"] {
+  display: block;
+  width: 300px;
+  padding: 5px;
+  margin: 10px auto;
+}
+
+button.active {
+  border-style: solid;
+  background-color: rgb(192,192,192);
+}
+
+button.inactive {
+  border-style: dashed;
+  background-color: rgba(192,192,192,0.5);
+}
+
+button:hover {
+  background-color: rgba(0,0,0,0.2);
+}
+
+#actions {
+  margin: 10px 0 0 0;
+}
+
+#actions > input {
+  width: 150px;
+  margin: 0 2px;
+  padding: 5px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  background-color: rgb(192,192,192);
+  cursor: pointer;
+}
+
+#actions > input:hover {
+  background-color: rgba(0,0,0,0.2);
+}

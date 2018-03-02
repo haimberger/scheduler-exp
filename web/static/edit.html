@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Scheduler | Edit</title>
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+  <link rel="stylesheet" type="text/css" href="styles/edit.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="title">
+      EDIT TASK
+    </div>
+    <form>
+      <input type="text" name="title" placeholder="Task title (max. 60 characters)">
+      <input type="text" name="link" placeholder="Link to Trello card, Slack message, or similar">
+      <input type="text" name="duration" placeholder="Duration estimate, e.g. &quot;4 hours&quot;">
+      <input type="text" name="assigner" placeholder="Your name (in case of questions)">
+      <div id="options">
+        <button id="scheduleButton" class="inactive"><img src="icons/clock.svg"></button>
+        <button id="preemptButton" class="active"><img src="icons/star.svg"></button>
+      </div>
+      <div id="actions">
+        <input type="button" id="cancelButton" value="CANCEL">
+        <input type="submit" value="DONE">
+      </div>
+    </form>
+  </div>
+</body>
+
+</html>
