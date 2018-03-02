@@ -23,6 +23,7 @@
 }
 
 .task-title .text {
+  padding: 5px;
   text-align: left;
 }
 
@@ -51,6 +52,7 @@ button:hover {
 
 button > img {
   width: 24px;
+  padding: 3px 0 1px 0;
 }
 
 a {
