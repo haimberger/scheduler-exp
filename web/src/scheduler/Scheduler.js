@@ -1,7 +1,8 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import './Scheduler.css';
 import Task from '../task/Task'
+import Editor from '../editor/Editor'
 
 const Home = () => (
   <div className="Home">
@@ -21,6 +22,12 @@ const Pending = () => (
       <Task title="Nullam sit amet augue risus." link="http://www.example.com" status="pending" canPreempt="true" />
       <Task title="Pellentesque accumsan, quam sed condimentum dapibus, nibh tellus." link="http://www.example.com" status="pending" />
     </div>
+    <div className="Pending-new">
+      <Link to="/tasks/new">
+        <span></span>
+        <img src="/icons/plus.svg" alt="new" />
+      </Link>
+    </div>
     <Link to="/">Back</Link>
   </div>
 );
@@ -28,8 +35,22 @@ const Pending = () => (
 const Scheduler = () => (
   <Router>
     <div className="Scheduler">
-      <Route exact path="/" component={Home}/>
-      <Route path="/pending" component={Pending}/>
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/pending" component={Pending} />
+        <Route
+          path="/tasks/new"
+          render={(routeProps) => (
+            <Editor {...routeProps} title="New Task" />
+          )}
+        />
+        <Route
+          path="/tasks/:id"
+          render={(routeProps) => (
+            <Editor {...routeProps} title="Edit Task" />
+          )}
+        />
+      </Switch>
     </div>
   </Router>
 );

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Task.css';
-import { IconButton, IconLinkButton } from '../button/Button'
+import { IconButton } from '../button/Button'
 
 class Task extends React.Component {
   constructor(props) {

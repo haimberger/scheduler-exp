@@ -4,8 +4,16 @@ button {
   border-color: black;
   border-radius: 5px;
   border-style: solid;
-  background-color: lightgrey;
+  background-color: rgba(192,192,192,0.5);
   cursor: pointer;
+}
+
+button.active {
+  background-color: rgb(192,192,192);
+}
+
+button.inactive {
+  border-style: dashed;
 }
 
 button:hover {
