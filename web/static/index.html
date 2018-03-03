@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Scheduler</title>
+  <link rel="icon" href="icons/favicon.ico" />
+  <link rel="stylesheet" type="text/css" href="styles/main.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="tasks">
+      <!-- Tasks will be inserted here dynamically. -->
+      <!-- FIXME: replace tables with divs -->
+      <div class="task task-wip">
+        <table class="task-title">
+          <tr>
+            <td class="text">Lorem ipsum dolor sit amet.</td>
+            <td class="image"><img src="icons/star.svg"></td>
+          </tr>
+        </table>
+        <div class="task-menu">
+          <button type="button" class="done"><img src="icons/check.svg"></button>
+          <button type="button" class="link">
+            <a href="http://www.example.com"><span></span></a>
+            <img src="icons/link.svg">
+          </button>
+          <button type="button" class="edit"><img src="icons/pencil.svg"></button>
+          <button type="button" class="pause"><img src="icons/arrow-right.svg"></button>
+          <button type="button" class="cancel"><img src="icons/x.svg"></button>
+        </div>
+      </div>
+      <div class="task task-done">
+        <table class="task-title">
+          <tr>
+            <td class="text">Suspendisse lorem mi, pharetra non nibh nec, hendrerit tincidunt diam.</td>
+            <td class="image"><img src="icons/check.svg"></td>
+          </tr>
+        </table>
+        <div class="task-menu">
+          <button type="button" class="link">
+            <a href="http://www.example.com"><span></span></a>
+            <img src="icons/link.svg">
+          </button>
+          <button type="button" class="edit"><img src="icons/pencil.svg"></button>
+          <button type="button" class="pause"><img src="icons/arrow-right.svg"></button>
+        </div>
+      </div>
+    </div>
+    <div id="pending">
+      <a href="pending.html">Show pending tasks...</a>
+    </div>
+  </div>
+  <script src="http://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+  <script src="scripts/main.js"></script>
+</body>
+
+</html>
