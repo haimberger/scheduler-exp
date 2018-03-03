@@ -1,3 +1,17 @@
 .Scheduler {
+  width: 350px;
+  margin: 0 auto;
   text-align: center;
+}
+
+.Home-tasks {
+  margin: 0 0 10px 0;
+}
+
+.Pending-tasks {
+  margin: 0 0 10px 0;
+}
+
+a {
+  color: grey;
 }
