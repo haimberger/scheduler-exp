@@ -10,7 +10,7 @@ class IconButton extends React.Component {
       classes += " inactive";
     }
     return (
-      <button type="button" className={classes}>
+      <button type="button" className={classes} onClick={this.props.onClick} >
         {this.props.link ? <a href={this.props.link}><span></span></a> : null}
         <img src={`/icons/${this.props.icon}.svg`} alt={this.props.icon} />
       </button>

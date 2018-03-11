@@ -1,11 +1,14 @@
 import React from 'react';
 import './Task.css';
-import { IconButton } from '../button/Button'
+import { IconButton } from '../button/Button';
+import Editor from '../editor/Editor';
+import Modal from '../modal/Modal';
 
 class Task extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { showMenu: false };
+    this.state = { editorIsOpen: false, menuIsOpen: false };
+    this.toggleEditor = this.toggleEditor.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
   }
 
@@ -23,7 +26,18 @@ class Task extends React.Component {
             </tr>
           </tbody>
         </table>
-        {this.state.showMenu ? <TaskMenu status={this.props.status} link={this.props.link} /> : null}
+        <TaskMenu
+          show={this.state.menuIsOpen}
+          status={this.props.status}
+          link={this.props.link}
+          onEdit={this.toggleEditor}
+        />
+        <Modal
+          show={this.state.editorIsOpen}
+          onClose={this.toggleEditor}
+        >
+          <Editor title="Edit Task" task={this.props} />
+        </Modal>
       </div>
     );
   }
@@ -54,17 +68,24 @@ class Task extends React.Component {
     }
   }
 
+  toggleEditor() {
+    this.setState({ editorIsOpen: !this.state.editorIsOpen });
+  }
+
   toggleMenu() {
-    this.setState({ showMenu: !this.state.showMenu });
+    this.setState({ menuIsOpen: !this.state.menuIsOpen });
   }
 }
 
 class TaskMenu extends React.Component {
   render() {
+    if (!this.props.show) {
+      return null;
+    }
     switch (this.props.status) {
-      case 'done': return <DoneMenu link={this.props.link} />;
-      case 'wip': return <WIPMenu link={this.props.link} />;
-      case 'pending': return <PendingMenu link={this.props.link} />;
+      case 'done': return <DoneMenu link={this.props.link} onEdit={this.props.onEdit} />;
+      case 'wip': return <WIPMenu link={this.props.link} onEdit={this.props.onEdit} />;
+      case 'pending': return <PendingMenu link={this.props.link} onEdit={this.props.onEdit} />;
       default: throw new Error(`invalid task status: ${this.props.status}`);
     }
   }
@@ -75,7 +96,7 @@ class DoneMenu extends React.Component {
     return (
       <div className="Task-menu">
         <IconButton class="link" icon="link" link={this.props.link} />
-        <IconButton class="edit" icon="pencil" />
+        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} />
         <IconButton class="pause" icon="arrow-right" />
       </div>
     );
@@ -88,7 +109,7 @@ class WIPMenu extends React.Component {
       <div className="Task-menu">
         <IconButton class="done" icon="check" />
         <IconButton class="link" icon="link" link={this.props.link} />
-        <IconButton class="edit" icon="pencil" />
+        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} />
         <IconButton class="pause" icon="arrow-right" />
         <IconButton class="cancel" icon="x" />
       </div>
@@ -101,7 +122,7 @@ class PendingMenu extends React.Component {
     return (
       <div className="Task-menu">
         <IconButton class="link" icon="link" link={this.props.link} />
-        <IconButton class="edit" icon="pencil" />
+        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} />
         <IconButton class="up" icon="arrow-up" />
         <IconButton class="down" icon="arrow-down" />
         <IconButton class="cancel" icon="x" />

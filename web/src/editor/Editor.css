@@ -1,3 +1,9 @@
+.Editor {
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
 .Editor-title {
   margin: 10px 0 0 0;
   padding: 10px;
@@ -8,18 +14,14 @@
 
 input[type="text"] {
   display: block;
-  width: 300px;
+  width: 80%;
   padding: 7px;
   margin: 10px auto;
 }
 
-.Editor-actions {
-  margin: 10px 0 0 0;
-}
-
-.Editor-actions > input {
-  width: 150px;
-  margin: 0 2px;
+input[type="submit"] {
+  width: 80%;
+  margin: 10px 0;
   padding: 10px;
   border-color: black;
   border-style: solid;
@@ -28,6 +30,6 @@ input[type="text"] {
   cursor: pointer;
 }
 
-.Editor-actions > input:hover {
+input[type="submit"]:hover {
   background-color: rgba(0,0,0,0.2);
 }
