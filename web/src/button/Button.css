@@ -4,20 +4,47 @@ button {
   border-color: black;
   border-radius: 5px;
   border-style: solid;
-  background-color: rgba(192,192,192,0.5);
   cursor: pointer;
 }
 
-button.active {
-  background-color: rgb(192,192,192);
+button.blue {
+  background-color: rgba(52,152,219,0.8);
 }
 
-button.inactive {
+button.blue:hover {
+  background-color: rgba(52,152,219,0.6);
+}
+
+button.blue.active {
+  background-color: rgb(52,152,219);
+}
+
+button.green {
+  background-color: rgba(39,174,96,0.8);
+}
+
+button.green:hover {
+  background-color: rgba(39,174,96,0.6);
+}
+
+button.green.active {
+  background-color: rgb(39,174,96);
+}
+
+button.yellow {
+  background-color: rgba(241,196,15,0.8);
+}
+
+button.yellow:hover {
+  background-color: rgba(241,196,15,0.6);
+}
+
+button.yellow.active {
+  background-color: rgb(241,196,15);
+}
+
+button.button.inactive {
   border-style: dashed;
-}
-
-button:hover {
-  background-color: rgba(0,0,0,0.2);
 }
 
 button > img {

@@ -4,6 +4,6 @@ import { IconButton } from './Button';
 
 it('renders IconButton without crashing', () => {
   const div = document.createElement('div');
-  ReactDOM.render(<IconButton class="edit" icon="pencil" />, div);
+  ReactDOM.render(<IconButton class="edit" icon="pencil" colour="yellow" />, div);
   ReactDOM.unmountComponentAtNode(div);
 });

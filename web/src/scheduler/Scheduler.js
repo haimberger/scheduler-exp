@@ -54,7 +54,7 @@ class Pending extends TaskList {
           show={this.state.editorIsOpen}
           onClose={this.closeEditor}
         >
-          <Editor title="New Task" />
+          <Editor title="New Task" colour="yellow" />
         </Modal>
       </div>
     )

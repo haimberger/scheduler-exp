@@ -3,7 +3,7 @@ import './Button.css';
 
 class IconButton extends React.Component {
   render() {
-    let classes = `Button-${this.props.class}`;
+    let classes = `Button-${this.props.class} ${this.props.colour}`;
     if (this.props.active === "true") {
       classes += " active";
     } else if (this.props.active === "false") {

@@ -11,7 +11,7 @@ class Editor extends React.Component {
   render() {
     return (
       <div className="Editor">
-        <div className="Editor-title">{this.props.title}</div>
+        <div className={`Editor-title ${this.props.colour}`}>{this.props.title}</div>
         <form>
           <input type="text"
             name="title"
@@ -30,10 +30,10 @@ class Editor extends React.Component {
             placeholder="Your name (in case of questions)"
             defaultValue={this.task.assigner} />
           <div className="Editor-options">
-            <IconButton class="schedule" icon="clock" active={this.task.startDate ? "true" : "false"} />
-            <IconButton class="preempt" icon="star" active={this.task.canPreempt ? "true" : "false"} />
+            <IconButton class="schedule" icon="clock" colour={this.props.colour} active={this.task.startDate ? "true" : "false"} />
+            <IconButton class="preempt" icon="star" colour={this.props.colour} active={this.task.canPreempt ? "true" : "false"} />
           </div>
-          <input type="submit" value="Done" />
+          <button className={this.props.colour} type="submit">Done</button>
         </form>
       </div>
     );

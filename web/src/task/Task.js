@@ -31,12 +31,13 @@ class Task extends React.Component {
           status={this.props.status}
           link={this.props.link}
           onEdit={this.toggleEditor}
+          colour={this.getColour()}
         />
         <Modal
           show={this.state.editorIsOpen}
           onClose={this.toggleEditor}
         >
-          <Editor title="Edit Task" task={this.props} />
+          <Editor title="Edit Task" task={this.props} colour={this.getColour()} />
         </Modal>
       </div>
     );
@@ -53,6 +54,14 @@ class Task extends React.Component {
       return 'Task-pending Task-scheduled';
     } else {
       return 'Task-pending';
+    }
+  }
+
+  getColour() {
+    switch (this.props.status) {
+      case 'done': return 'green';
+      case 'wip': return 'blue';
+      default: return 'yellow';
     }
   }
 
@@ -83,9 +92,9 @@ class TaskMenu extends React.Component {
       return null;
     }
     switch (this.props.status) {
-      case 'done': return <DoneMenu link={this.props.link} onEdit={this.props.onEdit} />;
-      case 'wip': return <WIPMenu link={this.props.link} onEdit={this.props.onEdit} />;
-      case 'pending': return <PendingMenu link={this.props.link} onEdit={this.props.onEdit} />;
+      case 'done': return <DoneMenu colour={this.props.colour} link={this.props.link} onEdit={this.props.onEdit} />;
+      case 'wip': return <WIPMenu colour={this.props.colour} link={this.props.link} onEdit={this.props.onEdit} />;
+      case 'pending': return <PendingMenu colour={this.props.colour} link={this.props.link} onEdit={this.props.onEdit} />;
       default: throw new Error(`invalid task status: ${this.props.status}`);
     }
   }
@@ -95,9 +104,9 @@ class DoneMenu extends React.Component {
   render() {
     return (
       <div className="Task-menu">
-        <IconButton class="link" icon="link" link={this.props.link} />
-        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} />
-        <IconButton class="pause" icon="arrow-right" />
+        <IconButton class="link" icon="link" link={this.props.link} colour={this.props.colour} />
+        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} colour={this.props.colour} />
+        <IconButton class="pause" icon="arrow-right" colour={this.props.colour} />
       </div>
     );
   }
@@ -107,11 +116,11 @@ class WIPMenu extends React.Component {
   render() {
     return (
       <div className="Task-menu">
-        <IconButton class="done" icon="check" />
-        <IconButton class="link" icon="link" link={this.props.link} />
-        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} />
-        <IconButton class="pause" icon="arrow-right" />
-        <IconButton class="cancel" icon="x" />
+        <IconButton class="done" icon="check" colour={this.props.colour} />
+        <IconButton class="link" icon="link" link={this.props.link} colour={this.props.colour} />
+        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} colour={this.props.colour} />
+        <IconButton class="pause" icon="arrow-right" colour={this.props.colour} />
+        <IconButton class="cancel" icon="x" colour={this.props.colour} />
       </div>
     );
   }
@@ -121,11 +130,11 @@ class PendingMenu extends React.Component {
   render() {
     return (
       <div className="Task-menu">
-        <IconButton class="link" icon="link" link={this.props.link} />
-        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} />
-        <IconButton class="up" icon="arrow-up" />
-        <IconButton class="down" icon="arrow-down" />
-        <IconButton class="cancel" icon="x" />
+        <IconButton class="link" icon="link" link={this.props.link} colour={this.props.colour} />
+        <IconButton class="edit" icon="pencil" onClick={this.props.onEdit} colour={this.props.colour} />
+        <IconButton class="up" icon="arrow-up" colour={this.props.colour} />
+        <IconButton class="down" icon="arrow-down" colour={this.props.colour} />
+        <IconButton class="cancel" icon="x" colour={this.props.colour} />
       </div>
     );
   }
