@@ -1,12 +1,13 @@
 package test
 
 import (
-	"bytes"
 	"encoding/json"
 	"flag"
 	"fmt"
 	"io/ioutil"
 	"path"
+
+	"github.com/haimberger/compare"
 )
 
 var update = flag.Bool("update", false, "update .golden files")
@@ -53,15 +54,21 @@ func CompareResults(actual interface{}, goldenFile string) error {
 	}
 
 	// check if the actual result matches the contents of the golden file
-	if !bytes.Equal(jsonStr, expected) {
+	jd := compare.JSONDiffer{BasicEqualer: compare.TolerantBasicEqualer{}}
+	diff, err := jd.Compare(jsonStr, expected)
+	if err != nil {
+		return err
+	}
+	if diff.Modified() {
 		if *update {
 			// overwrite the golden file with the actual result
-			if err = ioutil.WriteFile(goldenPath, jsonStr, 0666); err != nil {
-				return err
-			}
-		} else {
-			return fmt.Errorf("expected %s, got %s", expected, jsonStr)
+			return ioutil.WriteFile(goldenPath, jsonStr, 0666)
 		}
+		diffStr, err := diff.Format(false)
+		if err != nil {
+			return err
+		}
+		return fmt.Errorf("result doesn't match expected value\n%s", diffStr)
 	}
 	return nil
 }
