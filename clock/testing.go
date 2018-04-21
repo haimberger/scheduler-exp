@@ -2,6 +2,9 @@ package clock
 
 import "time"
 
+// TimestampLayout specifies the default format used to represent timestamps.
+const TimestampLayout = time.RFC3339
+
 // BrokenClock has seen better days; in its mind, time is standing still.
 type BrokenClock struct {
 	// T is the time that this clock always thinks it is.

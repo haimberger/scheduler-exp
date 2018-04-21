@@ -23,7 +23,11 @@ The following command runs all tests in all packages:
 
     make test
 
-If you'd like to see the test coverage information in a more visually appealing form, you can try the following instead:
+Some tests use "golden" files to keep track of expected results (see [task/task_test.go](task/task_test.go) and [task/testdata/](task/testdata/), for example). In those cases, if the files become outdated and you're certain that the actual values produced by the tests are correct, you can update the golden files as follows:
+
+    make test-update
+
+If you'd like to see the test coverage information in a more visually appealing form, you can try the following:
 
     make test-coverage
 
@@ -31,5 +35,6 @@ It will save the coverage information to a file, then open a browser window show
 
 If you only want to run tests for one package, there are commands for that as well:
 
-    make clock.test # run tests in clock package
-    make clock.cov  # show coverage information for clock package
+    make clock.test  # run tests in clock package
+    make clock.cov   # show coverage information for clock package
+    make task.update # run tests in task package, updating golden files where they differ from reality
