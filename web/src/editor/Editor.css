@@ -1,0 +1,41 @@
+.Editor {
+  max-width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.Editor-title {
+  margin: 10px 0 0 0;
+  padding: 10px;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.Editor-title.blue {
+  background-color: rgb(52,152,219);
+}
+
+.Editor-title.green {
+  background-color: rgb(39,174,96);
+}
+
+.Editor-title.yellow {
+  background-color: rgb(241,196,15);
+}
+
+input[type="text"] {
+  display: block;
+  width: 80%;
+  padding: 7px;
+  margin: 10px auto;
+}
+
+button[type="submit"] {
+  width: 80%;
+  margin: 10px 0;
+  padding: 10px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}

@@ -1,0 +1,31 @@
+.Scheduler {
+  width: 350px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.TaskList-tasks {
+  margin: 0 0 10px 0;
+}
+
+.Pending-new {
+  position: relative;
+  margin: 0 0 10px 0;
+  padding: 5px;
+  border-style: dashed;
+  border-width: 1px;
+  background-color: rgba(241,196,15,0.7);
+  cursor: pointer;
+}
+
+.Pending-new:hover {
+  background-color: rgba(241,196,15,0.5);
+}
+
+.Pending-new img {
+  width: 32px;
+}
+
+a {
+  color: grey;
+}

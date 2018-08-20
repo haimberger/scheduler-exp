@@ -1,0 +1,43 @@
+.Task {
+  margin: 10px 0 10px 0;
+}
+
+.Task-title {
+  width: 100%;
+  padding: 5px;
+  border-color: black;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}
+
+.Task-done > .Task-title {
+  background-color: rgb(39,174,96);
+}
+
+.Task-wip > .Task-title {
+  background-color: rgb(52,152,219);
+}
+
+.Task-pending > .Task-title {
+  background-color: rgb(241,196,15);
+}
+
+.Task-title img {
+  width: 32px;
+}
+
+.Task-title .text {
+  padding: 5px;
+  text-align: left;
+}
+
+.Task-title .icon {
+  text-align: right;
+}
+
+.Task-menu {
+  padding: 10px;
+  border-style: solid;
+  border-width: 0 1px 1px 1px;
+}
